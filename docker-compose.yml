@@ -1,0 +1,30 @@
+version: '3.5'
+services:
+  database:
+    container_name: postgres
+    image: postgres:13
+    environment:  # or use env_file as you did above
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_HOST: localhost     # This is the name of the database service in this file above
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: school  
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+  flask:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:  # or use env_file as you did above
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_HOST: database     # This is the name of the database service in this file above
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: school 
+    ports:
+      - 5000:5000 
+    depends_on:
+      - database
+
+volumes:
+  postgres-data:
