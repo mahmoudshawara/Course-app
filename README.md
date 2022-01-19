@@ -28,7 +28,6 @@ The API will return three error types when requests fail:
 - 404: Resource Not Found
 - 422: Not Processable 
 ## Endpoints 
-```
 GET '/'
 -  This is a simple health check, which returns the response 'Hello, Welcome in course app! .
 - Request Arguments: None
