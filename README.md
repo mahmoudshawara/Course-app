@@ -28,11 +28,12 @@ The API will return three error types when requests fail:
 - 404: Resource Not Found
 - 422: Not Processable 
 ## Endpoints 
+
 GET '/'
 -  This is a simple health check, which returns the response 'Hello, Welcome in course app! .
 - Request Arguments: None
 Sample: ``` curl http://127.0.0.1:5000/```
-```
+
 GET '/courses'
 - Returns a list of all courses ordered by its start date .
 - Request Arguments: None
@@ -58,6 +59,7 @@ Sample: ``` curl http://127.0.0.1:5000/courses```
   ]
 }
 ```
+
 POST '/add_course'
 - This end point can be used for adding a new course
 - JSON request parameters:```{
@@ -71,6 +73,7 @@ POST '/add_course'
   "name": "Arabic"
 }
 ```
+
 POST '/edit_course/<int:course_id>'
 - This end point can be used for adding a new course
 - Request Arguments:course id - integer
