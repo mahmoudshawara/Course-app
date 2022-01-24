@@ -12,9 +12,8 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
   flask:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
+    image: shawaraa/courseapp
     environment:  # or use env_file as you did above
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1234
