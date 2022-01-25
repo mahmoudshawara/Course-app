@@ -1,4 +1,5 @@
 version: '3.5'
+x-aws-vpc: "vpc-0891ce638950f3414"
 services:
   database:
     container_name: postgres
@@ -12,8 +13,7 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
   flask:
-    build: .
-    image: shawaraa/courseapp
+    image: shawaraa/courseapp:latest
     environment:  # or use env_file as you did above
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1234
