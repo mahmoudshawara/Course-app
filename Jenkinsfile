@@ -1,5 +1,5 @@
 pipeline {
-  agent { label 'Built-In Node' }
+  agent { label 'Linux' }
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
