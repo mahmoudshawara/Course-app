@@ -8,7 +8,7 @@ pipeline {
     DOCKER_HUB_CREDS = credentials('dockerhubaccount')
     AWS_CREDS = credentials('shawara-aws-cred')
     KEYCHAIN_PASSWORD = credentials('shawara-keychain')
-    dockerImage = ''
+    myImage = ''
   }
   stages {
     stage('Cloning Git') {
@@ -22,11 +22,6 @@ pipeline {
           docker --version
           docker compose version
         '''
-      }
-    }
-    stage('Unlock keychain') {
-      steps {
-        sh 'security -v unlock-keychain -p $KEYCHAIN_PASSWORD ~/Library/Keychains/login.keychain-db'
       }
     }
     stage('PreBuild') {
@@ -45,11 +40,11 @@ pipeline {
     stage('Build') {
       steps {
         sh 'docker context use default'
-        script {
-          dockerImage = docker.build registry + ":$BUILD_NUMBER"
-          docker.withRegistry( '', DOCKER_HUB_CREDS ) {
-            dockerImage.push()
-          }
+        withCredentials([usernamePassword( credentialsId: 'DOCKER_HUB_CREDS', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) 
+        docker.withRegistry('', 'docker-hub-credentials') {
+          sh "docker login -u ${USERNAME} -p ${PASSWORD}"
+          myImage.push("${env.BUILD_NUMBER}")
+          myImage.push("latest")
         }
       }
     }
@@ -59,11 +54,6 @@ pipeline {
         sh 'docker compose up'
         sh 'docker compose ps --format json'
       }
-    }
-  }
-  post {
-    always {
-        sh 'security -v lock-keychain ~/Library/Keychains/login.keychain-db'
     }
   }
 }
