@@ -4,8 +4,8 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
   environment {
-    registry = "shawaraa/courseapp"
-    DOCKER_HUB_CREDS = credentials('dockerhubaccount')
+    registry = ('shawaraa/courseapp')
+    DOCKER_HUB_CREDS = credentials('dockerhubaccount') 
     AWS_CREDS = credentials('shawara-aws-cred')
     KEYCHAIN_PASSWORD = credentials('shawara-keychain')
     dockerImage = ''
