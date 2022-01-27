@@ -45,6 +45,7 @@ pipeline {
         }
       }
     }
+    }
     stage('Deploy') {
       steps {
         sh 'docker context use myecscontext'
@@ -53,5 +54,4 @@ pipeline {
       }
     }
   }
-}
 }
