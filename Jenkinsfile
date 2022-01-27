@@ -5,7 +5,7 @@ pipeline {
   }
   environment {
     registry = "shawara/courseapp"
-    DOCKER_HUB_CREDS = credentials('dockerhubaccount')
+    registryCredential = credentials('dockerhubaccount')
     AWS_CREDS = credentials('shawara-aws-cred')
   }
   stages {
@@ -40,7 +40,7 @@ pipeline {
         sh 'docker context use default'
         script {
           def dockerImage = docker.build registry + ":aws$BUILD_NUMBER"
-          docker.withRegistry( '', DOCKER_HUB_CREDS ) {
+          docker.withRegistry( '', registryCredential ) {
             dockerImage.push()
         }
       }
