@@ -7,6 +7,7 @@ pipeline {
     registry = "shawara/courseapp"
     registryCredential = credentials('dockerhubaccount')
     AWS_CREDS = credentials('shawara-aws-cred')
+    dockerImage = ''
   }
   stages {
     stage('Cloning Git') {
@@ -39,8 +40,8 @@ pipeline {
       steps {
         sh 'docker context use default'
         script {
-          def dockerImage = docker.build registry + ":aws$BUILD_NUMBER"
-          docker.withRegistry( '', registryCredential ) {
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
+          docker.withRegistry( '', registryCredential  ) {
             dockerImage.push()
         }
       }
