@@ -7,11 +7,6 @@ pipeline {
     dockerImage = ''
   }
   stages {
-    stage('Cloning Git') {
-      steps {
-        git 'https://github.com/mahmoudshawara/Course-app.git'
-      }
-    }
     stage('Tooling versions') {
       steps {
         sh '''
