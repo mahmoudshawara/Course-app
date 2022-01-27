@@ -41,7 +41,7 @@ pipeline {
         sh 'docker context use default'
         script {
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
-          docker.withRegistry( '', registryCredential  ) {
+          docker.withRegistry( 'https://index.docker.io/v1/', registryCredential  ) {
             dockerImage.push()
           }
         }
