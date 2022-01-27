@@ -12,7 +12,7 @@ pipeline {
   stages {
     stage('Cloning Git') {
       steps {
-        git 'https://github.com/mahmoudshawara/Course-app.git'
+        git branch: 'main', url: 'https://github.com/mahmoudshawara/Course-app.git'
       }
     }
     stage('Tooling versions') {
