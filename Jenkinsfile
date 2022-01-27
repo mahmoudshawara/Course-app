@@ -5,7 +5,7 @@ pipeline {
   }
   environment {
     registry = "shawara/courseapp"
-    DOCKER_HUB_CREDS = credentials('docker-hub-account')
+    DOCKER_HUB_CREDS = credentials('dockerhubaccount')
     AWS_CREDS = credentials('shawara-aws-cred')
   }
   stages {
