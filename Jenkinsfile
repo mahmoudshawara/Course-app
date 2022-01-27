@@ -29,7 +29,7 @@ pipeline {
         sh 'docker context use default'
         script {
           dockerImage = docker.build registry + ":${env.BUILD_NUMBER}"
-          docker.withRegistry( '', DOCKER_HUB_CREDS ) {
+          docker.withRegistry( '', 'DOCKER_HUB_CREDS' ) {
             dockerImage.push()
           }
         }
