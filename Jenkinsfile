@@ -1,8 +1,5 @@
 pipeline {
   agent any
-  options {
-    buildDiscarder(logRotator(numToKeepStr: '5'))
-  }
   environment {
     registry = "shawara/courseapp"
     registryCredential = credentials('dockerhubaccount')
@@ -20,19 +17,6 @@ pipeline {
         sh '''
           docker --version
           docker compose version
-        '''
-      }
-    }
-    stage('PreBuild') {
-      steps {
-        sh 'docker context use default'
-        echo ">>>>>>>>> Start Clearing old docker images"
-        sh '''
-          if docker images -a | grep "shawara*" | awk '{print $1":"$2}' | xargs docker rmi -f; then
-            printf 'Clearing old images succeeded\n'
-          else
-            printf 'Clearing old images failed\n'
-          fi
         '''
       }
     }
