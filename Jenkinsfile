@@ -26,13 +26,13 @@ pipeline {
       steps {
         sh 'docker context use default'
         echo ">>>>>>>>> Start Clearing old docker images"
-        script {
+        sh '''
           if docker images -a | grep "shawara*" | awk '{print $1":"$2}' | xargs docker rmi -f; then
             printf 'Clearing old images succeeded\n'
           else
             printf 'Clearing old images failed\n'
           fi
-        }
+        '''
       }
     }
     stage('Build') {
