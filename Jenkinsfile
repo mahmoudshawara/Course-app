@@ -8,7 +8,7 @@ pipeline {
     DOCKER_HUB_CREDS = credentials('dockerhubaccount')
     AWS_CREDS = credentials('shawara-aws-cred')
     KEYCHAIN_PASSWORD = credentials('shawara-keychain')
-    myImage = ''
+    dockerImage = ''
   }
   stages {
     stage('Cloning Git') {
@@ -40,12 +40,11 @@ pipeline {
     stage('Build') {
       steps {
         sh 'docker context use default'
-        withCredentials([usernamePassword( credentialsId: 'DOCKER_HUB_CREDS', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) { 
-          docker.withRegistry('', 'docker-hub-credentials') {
-            sh "docker login -u ${USERNAME} -p ${PASSWORD}"
-            myImage.push("${env.BUILD_NUMBER}")
-            myImage.push("latest")
-          }  
+        script {
+          dockerImage = docker.build registry + ":${env.BUILD_NUMBER}"
+          docker.withRegistry( '', DOCKER_HUB_CREDS ) {
+            dockerImage.push()
+          }
         }
       }
     }
