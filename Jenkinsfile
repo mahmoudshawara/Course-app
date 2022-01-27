@@ -5,8 +5,8 @@ pipeline {
   }
   environment {
     registry = ('shawaraa/courseapp')
-    DOCKER_HUB_CREDS = credentials('dockerhubaccount') 
-    AWS_CREDS = credentials('shawara-aws-cred')
+    DOCKER_HUB_CREDENTIALS = credentials('dockerhubaccount') 
+    AWS_CREDENTIALS = credentials('shawara-aws-cred')
     KEYCHAIN_PASSWORD = credentials('shawara-keychain')
     dockerImage = ''
   }
@@ -21,19 +21,6 @@ pipeline {
         sh '''
           docker --version
           docker compose version
-        '''
-      }
-    }
-    stage('PreBuild') {
-      steps {
-        sh 'docker context use default'
-        echo ">>>>>>>>> Start Clearing old docker images"
-        sh '''
-          if docker images -a | grep "shawara*" | awk '{print $1":"$2}' | xargs docker rmi -f; then
-            printf 'Clearing old images succeeded\n'
-          else
-            printf 'Clearing old images failed\n'
-          fi
         '''
       }
     }
