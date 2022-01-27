@@ -24,6 +24,11 @@ pipeline {
         '''
       }
     }
+    stage('Unlock keychain') {
+      steps {
+        sh 'security -v unlock-keychain -p $KEYCHAIN_PASSWORD ~/Library/Keychains/login.keychain-db'
+      }
+    }
     stage('PreBuild') {
       steps {
         sh 'docker context use default'
@@ -54,6 +59,11 @@ pipeline {
         sh 'docker compose up'
         sh 'docker compose ps --format json'
       }
+    }
+  }
+  post {
+    always {
+        sh 'security -v lock-keychain ~/Library/Keychains/login.keychain-db'
     }
   }
 }
