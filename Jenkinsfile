@@ -5,8 +5,8 @@ pipeline {
   }
   environment {
     registry = ('shawaraa/courseapp')
-    DOCKER_HUB_CREDENTIALS = credentials('dockerhubaccount') 
-    AWS_CREDENTIALS = credentials('shawara-aws-cred')
+    DOCKER_HUB_CREDS = credentials('dockerhubaccount') 
+    AWS_CREDS = credentials('shawara-aws-cred')
     KEYCHAIN_PASSWORD = credentials('shawara-keychain')
     dockerImage = ''
   }
@@ -29,7 +29,7 @@ pipeline {
         sh 'docker context use default'
         script {
           dockerImage = docker.build registry + ":${env.BUILD_NUMBER}"
-          docker.withRegistry( '', DOCKER_HUB_CREDENTIALS ) {
+          docker.withRegistry( '', DOCKER_HUB_CREDS ) {
             dockerImage.push()
           }
         }
