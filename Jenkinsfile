@@ -24,10 +24,13 @@ pipeline {
         '''
       }
     }
+    
     stage('Deploy') {
       steps {
-        sh 'docker context create ecs myecscontext' 
-        sh 'docker context use myecscontext'
+        withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {
+          sh 'docker context create ecs myecscontext' 
+          sh 'docker context use myecscontext'
+        }
         sh 'docker compose up'
         sh 'docker compose ps --format json'
       }
