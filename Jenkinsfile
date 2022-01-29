@@ -24,10 +24,22 @@ pipeline {
         '''
       }
     }
+    stage('Build') {
+      steps {
+        sh 'docker context use default'
+        script {
+          dockerImage = docker.build registry + ":${env.BUILD_NUMBER}"
+          withDockerRegistry([ credentialsId: "dockerhubaccount", url: "" ]){  
+            dockerImage.push()
+          }
+        }
+      }
+    }
     stage('Deploy') {
       steps {
         sh 'docker context use myecscontext'
-        sh 'docker compose down'
+        sh 'docker compose up'
+        sh 'docker compose ps --format json'
       }
     }
   }
