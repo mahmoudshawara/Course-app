@@ -71,7 +71,7 @@ app.jinja_env.filters['datetime'] = format_datetime
 #  ----------------------------------------------------------------
 @app.route('/')
 def course_welcome():
-    return 'Hello, Welcome in course app!\n'
+    return 'Hello, Welcome in course app from AWS!\n'
 
 @app.route('/courses')
 def list_courses():
