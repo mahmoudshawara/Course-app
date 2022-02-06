@@ -1,4 +1,4 @@
-version: '3.5'
+version: '3.7'
 #x-aws-vpc: "vpc-0891ce638950f3414"
 services:
   database:
@@ -23,7 +23,7 @@ services:
       POSTGRES_PORT: 5432
       POSTGRES_DB: school 
     expose:
-      - 9090
+      - 8081
     depends_on:
       - database
   nginx:
@@ -33,6 +33,8 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./nginx/:/etc/nginx/conf.d
+      - ./config:/etc/nginx/conf.d/
+    depends_on:
+      - flask
 volumes:
   postgres-data:
