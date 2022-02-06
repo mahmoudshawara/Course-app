@@ -33,6 +33,6 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./config:/etc/nginx/conf.d/
+      - ./nginx/:/etc/nginx/conf.d
 volumes:
   postgres-data:
