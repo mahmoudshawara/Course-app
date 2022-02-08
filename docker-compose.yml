@@ -26,13 +26,17 @@ services:
       - 8081
     depends_on:
       - database
-  nginx:
-    build: ./nginx
-    container_name: nginx
-    restart: always
-    ports:
-      - "80:80"
-    depends_on:
-      - flask
+  https-portal:
+  image: steveltn/https-portal:1
+  ports:
+    - '80:80'
+    - '443:443'
+  links:
+    - flask
+  restart: always
+  environment:
+    DOMAINS: 'wordpress.example.com -> http://wordpress:80'
+    # STAGE: 'production' # Don't use production until staging works
+    # FORCE_RENEW: 'true'
 volumes:
   postgres-data:
