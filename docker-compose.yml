@@ -35,7 +35,7 @@ services:
       - flask
     restart: always
     environment:
-      DOMAINS: '100.27.29.45'
+      DOMAINS: '100.27.29.45:80'
       # STAGE: 'production' # Don't use production until staging works
       # FORCE_RENEW: 'true'
 volumes:
