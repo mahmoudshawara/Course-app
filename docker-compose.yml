@@ -35,7 +35,7 @@ services:
       - flask
     restart: always
     environment:
-      DOMAINS: '100.27.29.45'
+      DOMAINS: 'ec2-100-27-29-45.compute-1.amazonaws.com'
       # STAGE: 'production' # Don't use production until staging works
       # FORCE_RENEW: 'true'
 volumes:
