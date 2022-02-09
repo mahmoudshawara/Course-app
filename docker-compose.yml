@@ -35,7 +35,7 @@ services:
       - flask
     restart: always
     environment:
-      DOMAINS: 'test.shawaracourseapp.com => https://test.shawaracourseapp.com'
+      DOMAINS: 'shawaracourseapp.com => https://shawaracourseapp.com'
       # STAGE: 'production' # Don't use production until staging works
       # FORCE_RENEW: 'true'
 volumes:
