@@ -1,4 +1,4 @@
-# Course-app Simple Flask backend
+# Course-app Simple Flask backend with Automated Deployment to AWS by Jenkins
 The Flask app  consists of a simple API with three endpoints:
 
 - `GET '/'`: This is a simple health check, which returns the response 'Hello, Welcome in course app!'. 
